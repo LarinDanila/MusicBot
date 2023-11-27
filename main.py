@@ -2,15 +2,9 @@ import discord
 from discord.ext import commands
 from tokens import TOKEN
 import asyncio
+import test_commands
+from bot_settings import Bot
+import play_song
 
 
-intents = discord.Intents.default()
-intents.message_content = True
-bot = commands.Bot(command_prefix='!', self_bot=True, intents=intents)
-
-@bot.command()
-async def hello_world(ctx):
-    await ctx.send('Hello World!\n')
-
-
-bot.run(token=TOKEN)
+Bot.bot.run(token=TOKEN)
