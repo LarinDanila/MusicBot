@@ -2,3 +2,6 @@ venv/
 __pycache__/
 tokens.py
 song.mp3
+
+# for PyCharm
+.idea
