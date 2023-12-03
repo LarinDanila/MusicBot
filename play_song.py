@@ -10,28 +10,44 @@ from bot_settings import Bot
 current_queue = queue.Queue()
 
 
-@Bot.bot.command(name='play')
+@Bot.commands.command(name='play')
 async def add_song_to_queue_and_play(ctx, song):
     global current_queue
     current_queue.put(song)
     await ctx.send(f'Queued: {song}')
-    vc = discord.utils.get(Bot.bot.voice_clients, guild=ctx.guild)
+    vc = discord.utils.get(Bot.commands.voice_clients, guild=ctx.guild)
     if not vc or not vc.is_playing:
         await play_from_queue(ctx)
 
 
-async def play_from_queue(ctx, vc=None):
+@Bot.commands.command(name='skip')
+async def skip_playing_song(ctx):
+    vc = discord.utils.get(Bot.commands.voice_clients, guild=ctx.guild)
+    if not vc or not vc.is_playing:
+        await ctx.send(f'Nothing playing')
+    else:
+        pass
+
+
+async def play_from_queue(ctx):
     global current_queue
-    voice_channel = ctx.author.voice.channel
-    if voice_channel is not None:
-        if not current_queue.empty():
-            download_song(current_queue.get())
-            if not vc:
-                vc = await voice_channel.connect()
-            vc.play(discord.FFmpegPCMAudio(executable=FFMPEG_PATH,
-                                           source=SONG_PATH_NAME),
-                    after=lambda e: asyncio.run(play_from_queue(ctx, vc))
-                    )
+    vars(ctx)
+    if not is_connected(ctx):
+        voice_channel = ctx.author.voice.channel
+        vc = await voice_channel.connect()
+    else:
+        vc = ctx.voice_client
+    if not current_queue.empty():
+        download_song(current_queue.get())
+        vc.play(discord.FFmpegPCMAudio(executable=FFMPEG_PATH,
+                                       source=SONG_PATH_NAME),
+                after=lambda e: asyncio.run(play_from_queue(ctx))
+                )
+
+
+def is_connected(ctx):
+    voice_client = discord.utils.get(ctx.bot.voice_clients, guild=ctx.guild)
+    return voice_client and voice_client.is_connected()
 
 
 def download_song(song_url):

@@ -1,5 +1,6 @@
 from tokens import TOKEN
 
 from bot_settings import Bot
+import play_song
 
-Bot.bot.run(token=TOKEN)
+Bot.commands.run(token=TOKEN)
