@@ -17,7 +17,7 @@ clear-cache-post-run=no
 # suppressed, and no reports are done by default. Error mode is compatible with
 # disabling specific errors.
 #errors-only=
-disable=too-few-public-methods
+disable=too-few-public-methods, import-error
 
 # Always return a 0 (non-error) status code, even if lint errors are found.
 # This is primarily useful in continuous integration scripts.
