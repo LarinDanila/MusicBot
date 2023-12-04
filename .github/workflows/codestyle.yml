@@ -41,6 +41,7 @@ jobs:
         python -m pip install --upgrade pip
         pip install pylint
         pip install -r $(git ls-files 'requirements.txt')
+        pip install anybadge
     - name: Analysing the code with pylint
       run: |
         pylint --rcfile=configs/.pylintrc $(git ls-files '*.py') | tee pylint.txt
