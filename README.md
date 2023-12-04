@@ -1,3 +1,4 @@
+![https://github.com/LarinDanila/MusicBot/actions/workflows/codestyle.yml/badge.svg](https://github.com/LarinDanila/MusicBot/actions/workflows/codestyle.yml/badge.svg)
 # MusicBot
 
 A personal project dedicated to the development of a music bot that should play music in Discord
