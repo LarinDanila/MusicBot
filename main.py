@@ -1,5 +1,9 @@
+"""
+Main entrance to program
+"""
 from tokens import TOKEN
 
-from bot_settings import Bot
+from bot import Bot
 
-Bot.bot.run(token=TOKEN)
+bot = Bot()
+bot.bot.run(token=TOKEN)
