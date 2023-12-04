@@ -1,3 +1,6 @@
+"""
+Test for our bot
+"""
 from play_song import download_song
 
 # TODO: Написать тесты
