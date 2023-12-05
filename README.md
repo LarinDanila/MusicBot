@@ -1,4 +1,4 @@
-![https://github.com/LarinDanila/MusicBot/actions/workflows/pylint.yml/badge.svg](https://github.com/LarinDanila/MusicBot/actions/workflows/pylint.yml/badge.svg)
+![https://github.com/LarinDanila/MusicBot/actions/workflows/pylint.yml/pylint.svg](https://github.com/LarinDanila/MusicBot/actions/workflows/pylint.yml/pylint.svg)
 
 ![https://github.com/LarinDanila/MusicBot/actions/workflows/pycodestyle.yml/badge.svg](https://github.com/LarinDanila/MusicBot/actions/workflows/pycodestyle.yml/badge.svg)
 
