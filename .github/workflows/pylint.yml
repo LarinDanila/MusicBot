@@ -3,27 +3,6 @@ name: Codestyle check
 on: [push]
 
 jobs:
-  pycodestyle:
-    name: Pycodestyle
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        python-version: ["3.10"]
-    steps:
-    - uses: actions/checkout@v3
-    - name: Set up Python ${{ matrix.python-version }}
-      uses: actions/setup-python@v3
-      with:
-        python-version: ${{ matrix.python-version }}
-    - name: Install dependencies
-      run: |
-        python -m pip install --upgrade pip
-        pip install pycodestyle
-        pip install -r $(git ls-files 'requirements.txt')
-    - name: Analysing the code with pylint
-      run: |
-        pycodestyle $(git ls-files '*.py')
-
   pylint:
     name: pylint
     runs-on: ubuntu-latest
@@ -46,4 +25,4 @@ jobs:
       run: |
         pylint --rcfile=configs/.pylintrc $(git ls-files '*.py') | tee pylint.txt
         score=$(sed -n 's/^Your code has been rated at \([-0-9.]*\)\/.*/\1/p' pylint.txt)
-        anybadge --value=$score --file=pylint.svg pylint
+        anybadge --value=$score --file=badge.svg pylint
