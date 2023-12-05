@@ -1,4 +1,4 @@
-name: Codestyle check
+name: Pycodestyle
 
 on: [push]
 
