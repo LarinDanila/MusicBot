@@ -7,7 +7,7 @@ import queue
 import discord
 from discord.ext import commands
 
-from app.play_song import play_from_queue, is_connected, download_song
+from app.play_song import is_connected, download_song
 from app.tokens import FFMPEG_PATH, SONG_PATH_NAME
 
 
