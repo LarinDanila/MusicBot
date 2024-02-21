@@ -37,7 +37,7 @@ class Song(commands.Cog):
             await ctx.send(f'Queued: {song}')
         vc = discord.utils.get(self.bot.voice_clients, guild=ctx.guild)
         if not vc or not vc.is_playing():
-            await play_from_queue(ctx, self.current_queue)
+            await self.play_from_queue(ctx, self.current_queue)
 
     @commands.command(name='skip')
     async def skip_playing_song(self, ctx: commands.Context):
@@ -109,7 +109,7 @@ class Song(commands.Cog):
             # TODO: Добавить вывод трека
             vc.play(discord.FFmpegPCMAudio(executable=FFMPEG_PATH,
                                            source=SONG_PATH_NAME),
-                    after=lambda e: asyncio.run(play_from_queue(
+                    after=lambda e: asyncio.run(self.play_from_queue(
                         ctx,
                         current_queue)
                     )
