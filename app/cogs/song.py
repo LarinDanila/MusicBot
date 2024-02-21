@@ -1,12 +1,14 @@
 """
 All song commands for bot in discord.cogs
 """
+import asyncio
 import queue
 
 import discord
 from discord.ext import commands
 
-from app.play_song import play_from_queue, is_connected
+from app.play_song import play_from_queue, is_connected, download_song
+from app.tokens import FFMPEG_PATH, SONG_PATH_NAME
 
 
 class Song(commands.Cog):
@@ -88,3 +90,30 @@ class Song(commands.Cog):
             else:
                 vc = ctx.voice_client
             vc.resume()
+
+    async def play_from_queue(self, ctx, current_queue):
+        """
+        Method for playing downloaded song to discord voice channel
+        :param ctx:
+        :param current_queue:
+        :return:
+        """
+        if not is_connected(ctx):
+            voice_channel = ctx.author.voice.channel
+            vc = await voice_channel.connect()
+        else:
+            vc = ctx.voice_client
+        if not current_queue.empty():
+            song = current_queue.get()
+            download_song(song)
+            # TODO: Добавить вывод трека
+            vc.play(discord.FFmpegPCMAudio(executable=FFMPEG_PATH,
+                                           source=SONG_PATH_NAME),
+                    after=lambda e: asyncio.run(play_from_queue(
+                        ctx,
+                        current_queue)
+                    )
+                    )
+        else:
+            for x in self.bot.voice_clients:
+                return await x.disconnect()
