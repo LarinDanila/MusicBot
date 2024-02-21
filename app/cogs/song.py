@@ -6,7 +6,7 @@ import queue
 import discord
 from discord.ext import commands
 
-from play_song import play_from_queue, is_connected
+from app.play_song import play_from_queue, is_connected
 
 
 class Song(commands.Cog):
@@ -34,7 +34,7 @@ class Song(commands.Cog):
             self.current_queue.put(song)
             await ctx.send(f'Queued: {song}')
         vc = discord.utils.get(self.bot.voice_clients, guild=ctx.guild)
-        if not vc or not vc.is_playing:
+        if not vc or not vc.is_playing():
             await play_from_queue(ctx, self.current_queue)
 
     @commands.command(name='skip')

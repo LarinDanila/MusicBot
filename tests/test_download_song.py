@@ -1,7 +1,7 @@
 """
 Test for our bot
 """
-from play_song import download_song
+from app.play_song import download_song
 
 # TODO: Написать тесты
 download_song(
